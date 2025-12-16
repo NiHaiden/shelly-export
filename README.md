@@ -1,3 +1,6 @@
-# TanStack Start + shadcn/ui
+# Shelly Exporter App
 
-This is a template for a new TanStack Start project with React, TypeScript, and shadcn/ui.
+
+This is a pre alpha quality app to easily add shelly plugs and export their metrics to a prometheus source, acting as a bridge between the shelly plug device. It was mostly created out of fun and not for real production use (yet). 
+
+Uses Docker and TimescaleDB if you activate the inbuilt polling service.
