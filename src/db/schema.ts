@@ -1,11 +1,11 @@
 import {
-  pgTable,
-  serial,
-  varchar,
-  integer,
-  timestamp,
-  real,
   index,
+  integer,
+  pgTable,
+  real,
+  serial,
+  timestamp,
+  varchar,
 } from "drizzle-orm/pg-core";
 
 export const shellyPlugs = pgTable("shelly_plugs", {

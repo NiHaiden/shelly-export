@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { getPlugs, createPlug, deletePlug } from "@/server/plugs";
+import { BarChart3, Check, Copy, ExternalLink, Plus, Trash2 } from "lucide-react";
 import type { ShellyPlug } from "@/db/schema";
+import { createPlug, deletePlug, getPlugs } from "@/server/plugs";
 import {
   Card,
   CardContent,
@@ -12,7 +13,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Trash2, Plus, ExternalLink, Copy, Check, BarChart3 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export const Route = createFileRoute("/")({
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/")({
 
 function App() {
   const { plugs: initialPlugs } = Route.useLoaderData();
-  const [plugs, setPlugs] = useState<ShellyPlug[]>(initialPlugs);
+  const [plugs, setPlugs] = useState<Array<ShellyPlug>>(initialPlugs);
   const [isAdding, setIsAdding] = useState(false);
   const [copiedId, setCopiedId] = useState<number | null>(null);
 

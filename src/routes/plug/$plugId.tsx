@@ -1,6 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect, useCallback } from "react";
-import { getPlugById, getHistoricalMetrics } from "@/server/plugs";
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { useCallback, useEffect, useState } from "react";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { ArrowLeft } from "lucide-react";
+import { getHistoricalMetrics, getPlugById } from "@/server/plugs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,8 +10,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from "recharts";
-import { ArrowLeft } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const TIME_RANGES = [
@@ -33,7 +33,7 @@ interface DataPoint {
 
 function PlugDetail() {
   const { plug } = Route.useLoaderData();
-  const [history, setHistory] = useState<DataPoint[]>([]);
+  const [history, setHistory] = useState<Array<DataPoint>>([]);
   const [currentPower, setCurrentPower] = useState<number | null>(null);
   const [timeRange, setTimeRange] = useState(5); // minutes
 

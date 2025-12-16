@@ -1,8 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
+import { and, desc, eq, gte } from "drizzle-orm";
+import {  fetchShellyStatus } from "./shelly";
+import type {ShellyStatus} from "./shelly";
+import type {NewShellyPlug} from "@/db/schema";
 import { db } from "@/db";
-import { shellyPlugs, shellyMetrics, type NewShellyPlug } from "@/db/schema";
-import { eq, desc, and, gte } from "drizzle-orm";
-import { fetchShellyStatus, type ShellyStatus } from "./shelly";
+import {  shellyMetrics, shellyPlugs } from "@/db/schema";
 
 export const getPlugs = createServerFn({ method: "GET" }).handler(async () => {
   const plugs = await db.select().from(shellyPlugs).orderBy(shellyPlugs.id);

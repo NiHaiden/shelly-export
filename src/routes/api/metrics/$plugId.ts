@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { shellyPlugs } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { fetchShellyStatus, formatPrometheusMetrics } from "@/server/shelly";
 
 export const Route = createFileRoute("/api/metrics/$plugId")({

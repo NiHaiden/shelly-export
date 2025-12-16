@@ -11,19 +11,19 @@ export interface ShellyStatus {
   pf?: number;
   aenergy?: {
     total: number;
-    by_minute?: number[];
+    by_minute?: Array<number>;
     minute_ts?: number;
   };
   ret_aenergy?: {
     total: number;
-    by_minute?: number[];
+    by_minute?: Array<number>;
     minute_ts?: number;
   };
   temperature?: {
     tC: number;
     tF: number;
   };
-  errors?: string[];
+  errors?: Array<string>;
 }
 
 export interface ShellyError {
@@ -100,7 +100,7 @@ export function formatPrometheusMetrics(
   _plugId: number,
   _plugName: string
 ): string {
-  const lines: string[] = [];
+  const lines: Array<string> = [];
 
   // Power (Watts)
   lines.push("# HELP power Current real AC power being drawn, in Watts");
