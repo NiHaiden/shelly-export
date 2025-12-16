@@ -10,33 +10,72 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PlugPlugIdRouteImport } from './routes/plug/$plugId'
+import { Route as ApiPollPlugIdRouteImport } from './routes/api/poll/$plugId'
+import { Route as ApiMetricsPlugIdRouteImport } from './routes/api/metrics/$plugId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlugPlugIdRoute = PlugPlugIdRouteImport.update({
+  id: '/plug/$plugId',
+  path: '/plug/$plugId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPollPlugIdRoute = ApiPollPlugIdRouteImport.update({
+  id: '/api/poll/$plugId',
+  path: '/api/poll/$plugId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMetricsPlugIdRoute = ApiMetricsPlugIdRouteImport.update({
+  id: '/api/metrics/$plugId',
+  path: '/api/metrics/$plugId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/plug/$plugId': typeof PlugPlugIdRoute
+  '/api/metrics/$plugId': typeof ApiMetricsPlugIdRoute
+  '/api/poll/$plugId': typeof ApiPollPlugIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/plug/$plugId': typeof PlugPlugIdRoute
+  '/api/metrics/$plugId': typeof ApiMetricsPlugIdRoute
+  '/api/poll/$plugId': typeof ApiPollPlugIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/plug/$plugId': typeof PlugPlugIdRoute
+  '/api/metrics/$plugId': typeof ApiMetricsPlugIdRoute
+  '/api/poll/$plugId': typeof ApiPollPlugIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/plug/$plugId'
+    | '/api/metrics/$plugId'
+    | '/api/poll/$plugId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/plug/$plugId' | '/api/metrics/$plugId' | '/api/poll/$plugId'
+  id:
+    | '__root__'
+    | '/'
+    | '/plug/$plugId'
+    | '/api/metrics/$plugId'
+    | '/api/poll/$plugId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PlugPlugIdRoute: typeof PlugPlugIdRoute
+  ApiMetricsPlugIdRoute: typeof ApiMetricsPlugIdRoute
+  ApiPollPlugIdRoute: typeof ApiPollPlugIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +87,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plug/$plugId': {
+      id: '/plug/$plugId'
+      path: '/plug/$plugId'
+      fullPath: '/plug/$plugId'
+      preLoaderRoute: typeof PlugPlugIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/poll/$plugId': {
+      id: '/api/poll/$plugId'
+      path: '/api/poll/$plugId'
+      fullPath: '/api/poll/$plugId'
+      preLoaderRoute: typeof ApiPollPlugIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/metrics/$plugId': {
+      id: '/api/metrics/$plugId'
+      path: '/api/metrics/$plugId'
+      fullPath: '/api/metrics/$plugId'
+      preLoaderRoute: typeof ApiMetricsPlugIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PlugPlugIdRoute: PlugPlugIdRoute,
+  ApiMetricsPlugIdRoute: ApiMetricsPlugIdRoute,
+  ApiPollPlugIdRoute: ApiPollPlugIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
