@@ -6,16 +6,17 @@ WORKDIR /app
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copy package files
+# Copy package files first for better caching
 COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies
+# Install all dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY . .
 
 # Build the application
+ENV NODE_ENV=production
 RUN pnpm build
 
 # Production stage
@@ -30,13 +31,14 @@ RUN corepack enable && corepack prepare pnpm@latest --activate \
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
 
-# Install all dependencies (need drizzle-kit for migrations)
+# Install dependencies (need tsx for migrations)
 RUN pnpm install --frozen-lockfile
 
-# Copy drizzle config and migrations
-COPY drizzle.config.ts ./
+# Copy drizzle migrations folder
 COPY drizzle ./drizzle
-COPY src/db ./src/db
+
+# Copy migration script
+COPY scripts/migrate.ts ./scripts/migrate.ts
 
 # Copy built application
 COPY --from=builder /app/.output ./.output

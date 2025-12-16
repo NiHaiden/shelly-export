@@ -24,7 +24,7 @@ done
 echo "Database is ready!"
 
 echo "Running database migrations..."
-pnpm db:migrate
+npx tsx scripts/migrate.ts
 
 echo "Starting application..."
 exec node .output/server/index.mjs
